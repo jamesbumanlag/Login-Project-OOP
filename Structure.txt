@@ -1,0 +1,17 @@
+CLASS STRUCTURE
+
+Class background
+background image
+user icon
+label
+
+Class input
+username - Label, Entry, line
+input_password - Label, Entry, Line, Show/hide button
+
+Class Button
+show/hide 
+main_button
+forgot password
+sign up/label-not a member
+sign in/label-have an account

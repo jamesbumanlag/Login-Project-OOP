@@ -1,14 +1,14 @@
 from tkinter import *
 
 class root(Tk):
-    def __init__(self, title, geometry, resizable):
+    def __init__(self, title, geometry, resizable, function,title_page ):
         super().__init__()
         self.title(title)
         self.geometry(f'{geometry[0]}x{geometry[1]}+{geometry[2]}+{geometry[3]}')
         self.resizable(resizable[0], resizable[1])
 
         # widgets starts here
-        canvas_login = Canvas_Main(self,'Login')
+        function = Canvas_Main(self,title)
 
         self.mainloop()
        
@@ -44,7 +44,7 @@ class Canvas_Main(Canvas):
         self.frame_entry_user.configure( width=180, bd=2)
         self.frame_entry_user.place(x=x, y=line_y)
 
-    def input_pass(self, text_pass, x, text_y, entry_y,line_y, hide_x, hide_y):
+    def input_pass(self, text_pass, x, text_y, entry_y,line_y, hide_x, hide_y, command):
         self.create_text(x,text_y,text=text_pass, font=['inter',11],fill='#7f7fcc', anchor='nw')
         self.entry_pass = Entry(self, 
                                 font=['inter',10],
@@ -71,12 +71,12 @@ class Canvas_Main(Canvas):
                                   border=0,
                                   bd=0,
                                   background='white',
-                                  command=self.hide_show_pass
+                                  command=command
                                   )       
         self.create_window(hide_x,hide_y, anchor='nw', window=self.button_hide)
 
     # Function hide and show password
-    def hide_show_pass(self, hide_x, hide_y):
+    def hide_show_pass(self, hide_x, hide_y, command):
             if self.entry_pass['show'] == '●':
                     self.entry_pass.configure(show='') 
                     self.show_btn = Button(self,
@@ -85,7 +85,7 @@ class Canvas_Main(Canvas):
                             borderwidth=0,
                             activebackground="white",
                             cursor='hand2',
-                            command=self.hide_show_pass
+                            command=command
                             )
                     
                     self.create_window(hide_x, hide_y, anchor='nw', window=self.show_btn)      
@@ -99,12 +99,12 @@ class Canvas_Main(Canvas):
                             bg="white",
                             activebackground="white",
                             cursor='hand2',
-                            command=self.hide_show_pass)
+                            command=command)
                     
                     self.create_window(hide_x, hide_y, anchor='nw', window=self.hide_btn)
                     self.hide_btn.config(image=self.image_hide) 
             
-    def button_main(self, image_button, button_x, button_y):
+    def button_main(self, image_button, button_x, button_y, command):
         self.image_button = PhotoImage(file=image_button)
         self.main_bt = Button(self, 
                               image=self.image_button, 
@@ -113,12 +113,13 @@ class Canvas_Main(Canvas):
                               highlightbackground='white', 
                               bd=0,
                               background='white',
-                              highlightcolor='white'
+                              highlightcolor='white',
+                              command = command
                               
                               )
         self.create_window(button_x,button_y, anchor='nw', window=self.main_bt)
 
-    def signin_signup_label_button(self, text, button_text,label_x, label_y, sign_x, sign_y):
+    def signin_signup_label_button(self, text, button_text,label_x, label_y, sign_x, sign_y, command):
         self.create_text(label_x,label_y, 
                          text=f'{text} |',
                          font=['inter',9],
@@ -131,12 +132,13 @@ class Canvas_Main(Canvas):
                                 activebackground='white',
                                 highlightbackground='white', 
                                 background='white',
-                                activeforeground='#7f7fcc'
+                                activeforeground='#7f7fcc', 
+                                command=command
                                
                                 )
         self.create_window(sign_x,sign_y, anchor='nw', window=self.signup_bt)
 
-    def forgot_password(self, forgot_x, forgot_y):
+    def forgot_password(self, forgot_x, forgot_y, command):
         self.forgot_button = Button(self, 
                                 text='Forgot Password', 
                                 font=['inter',9],
@@ -145,7 +147,9 @@ class Canvas_Main(Canvas):
                                 activebackground='white',
                                 highlightbackground='white', 
                                 activeforeground='#7f7fcc',
-                                background='white'
+                                background='white',
+                                command=command
+                                
                                 
                                     )
         
